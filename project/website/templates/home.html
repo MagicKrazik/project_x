@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div id="age-verification" class="overlay">
+    <div class="popup">
+      <h2>Advertencia de contenido para adultos</h2>
+      <p>Este sitio web contiene contenido para adultos.</p>
+      <p>Al continuar, confirmas que tienes más de 18 años y has leído y aceptado nuestros términos.</p>
+      <button id="agree-button">Aceptar y continuar</button>
+      <button id="decline-button">Rechazar</button>
+    </div>
+</div>
+
+<div class="home-container">
+    <section class="hero">
+        <h1>Bienvenido a Mi Mundo Exclusivo</h1>
+        <p>Descubre contenido único y personal, conecta conmigo en tiempo real.</p>
+    </section>
+
+    <section class="intro">
+        <div class="intro-content">
+            <img src="{% static 'images/image_5.jpg' %}" alt="Sofia Estrella" class="profile-image" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%22200%22 height%3D%22200%22 viewBox%3D%220 0 200 200%22%3E%3Crect width%3D%22200%22 height%3D%22200%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2216%22 fill%3D%22%23333%22%3ESofia Estrella%3C%2Ftext%3E%3C%2Fsvg%3E';">
+            <div class="intro-text">
+                <h2>Hola, soy Sofia Estrella</h2>
+                <p>Modelo, actriz y creadora de contenido exclusivo. Con 25 años, soy apasionada, creativa y siempre lista para nuevas aventuras. Mi contenido es una mezcla de sensualidad, arte y diversión.</p>
+                <p>Te espero para divertirnos juntos.</p>
+        </div>
+    </section>
+
+    <section class="intro">
+        <div class="intro-content">
+            <div class="intro-text">
+                <h2>Membresias</h2>
+                <p>Únete mi comunidad de <a href="{% url 'register' %}"><strong>clientes VIP</strong></a> y disfruta de mi contenido exclusivo. <strong>Por solo $250 MXN al mes, tendrás acceso ilimitado al área VIP, donde encontrarás fotografías, videos, contenido detrás de cámaras y otros beneficios.</strong> No pierdas la oportunidad de disfrutar mi CONTENIDO EXCLUSIVO y mi COMPAÑÍA</p>
+                <h3>Beneficios como cliente registrado:</h3>
+                <ul>
+                    <li>Acceso a mis fotos y videos exclusivos - incluido en el costo de la membresia</li>
+                    <li>Videollamadas privadas - costo extra </li>
+                    <li>Sesiones de chat en vivo - costo extra</li>
+                    <li>Contenido temático y de fantasía</li>
+                    <li>Agenda tu cita presencial en el área de clientes VIP - revisa horarios disponibles, costos y promociones</li>
+                </ul>
+                <br>
+                <h4>Al registrate como cliente VIP ya no tienes que pagar anticipo para las citas presenciales.</h4>
+                <h5>NO LO PIENSES MAS REGISTARTE Y COMIENZA A DISFRUTAR MI CONTENIDO Y MI COMPANIA</h5>
+                <br>
+                <a href="{% url 'register' %}" class="cta-button">Únete Ahora</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="features">
+        <div class="feature-card" data-preview="galeria">
+            <img src="{% static 'images/image_1.jpg' %}" alt="Galería" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Crect width%3D%2280%22 height%3D%2280%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2214%22 fill%3D%22%23333%22%3EGalería%3C%2Ftext%3E%3C%2Fsvg%3E';">
+            <h3>Galería Privada</h3>
+            <p>Accede a fotos y videos exclusivos actualizados regularmente.</p>
+        </div>
+        <div class="feature-card" data-preview="videollamadas">
+            <img src="{% static 'images/image_2.jpg' %}" alt="Videollamadas" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Crect width%3D%2280%22 height%3D%2280%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2214%22 fill%3D%22%23333%22%3EVideollamadas%3C%2Ftext%3E%3C%2Fsvg%3E';">
+            <h3>Videollamadas Privadas</h3>
+            <p>Chatea conmigo en tiempo real en sesiones uno a uno.</p>
+        </div>
+        <div class="feature-card">
+            <img src="{% static 'images/image_4.jpg' %}" alt="Agendar" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Crect width%3D%2280%22 height%3D%2280%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2214%22 fill%3D%22%23333%22%3EAgendar%3C%2Ftext%3E%3C%2Fsvg%3E';">
+            <h3>Agenda Tu Cita</h3>
+            <p>Reserva tiempo exclusivo conmigo para una experiencia personalizada.</p>
+        </div>
+    </section>
+
+    <div id="previewOverlay" class="overlaypreview">
+        <div class="close-button">&times;</div>
+        <div id="previewContainer" class="preview-container">
+            <img id="previewImage" class="preview-image" src="" alt="Preview Image">
+            <div class="navigation-buttons">
+                <button id="prevButton" class="nav-button">Previous</button>
+                <button id="nextButton" class="nav-button">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="reviews-section">
+        <h2>Reseñas</h2>
+        <div class="reviews-container" id="reviewsContainer">
+            <!-- Reviews will be dynamically added here -->
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Define a global object to hold our image URLs
+    window.previewImages = {
+        galeria: [
+            "{% static 'images/image_1.jpg' %}",
+            "{% static 'images/image_1.jpg' %}",
+            "{% static 'images/image_1.jpg' %}",
+            "{% static 'images/image_1.jpg' %}",
+            "{% static 'images/image_1.jpg' %}",
+            "{% static 'images/image_1.jpg' %}",
+        ],
+        videollamadas: [
+            "{% static 'images/videollamada_sample1.jpg' %}",
+
+        ]
+    };
+</script>
+<script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

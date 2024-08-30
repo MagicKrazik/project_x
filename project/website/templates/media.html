@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/media.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="media-gallery-container">
+    <h1 class="gallery-title">Galeria</h1>
+    
+    <section class="media-section">
+        <h2 class="section-title">Carpetas de Imágenes</h2>
+        <div class="features">
+            <div class="feature-card" data-preview="naturaleza">
+                <img src="{% static 'images/image_5.jpg' %}" alt="Naturaleza" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Crect width%3D%2280%22 height%3D%2280%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2214%22 fill%3D%22%23333%22%3ENaturaleza%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                <h3>Naturaleza</h3>
+                <p>Explora hermosas fotografías de paisajes y vida silvestre.</p>
+            </div>
+            <div class="feature-card" data-preview="retratos">
+                <img src="{% static 'images/retratos_thumb.jpg' %}" alt="Retratos" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Crect width%3D%2280%22 height%3D%2280%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2214%22 fill%3D%22%23333%22%3ERetratos%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                <h3>Retratos</h3>
+                <p>Descubre una colección de retratos cautivadores.</p>
+            </div>
+            <div class="feature-card" data-preview="eventos">
+                <img src="{% static 'images/eventos_thumb.jpg' %}" alt="Eventos" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Crect width%3D%2280%22 height%3D%2280%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2214%22 fill%3D%22%23333%22%3EEventos%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                <h3>Eventos</h3>
+                <p>Revive momentos especiales capturados en eventos.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="media-section">
+        <h2 class="section-title">Carpetas de Videos</h2>
+        <div class="features">
+            <div class="feature-card" data-preview="bodas">
+                <img src="{% static 'images/bodas_thumb.jpg' %}" alt="Bodas" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Crect width%3D%2280%22 height%3D%2280%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2214%22 fill%3D%22%23333%22%3EBodas%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                <h3>Bodas</h3>
+                <p>Disfruta de hermosos momentos de bodas en video.</p>
+            </div>
+            <div class="feature-card" data-preview="viajes">
+                <img src="{% static 'images/viajes_thumb.jpg' %}" alt="Viajes" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Crect width%3D%2280%22 height%3D%2280%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2214%22 fill%3D%22%23333%22%3EViajes%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                <h3>Viajes</h3>
+                <p>Explora destinos fascinantes a través de videos de viajes.</p>
+            </div>
+            <div class="feature-card" data-preview="documentales">
+                <img src="{% static 'images/documentales_thumb.jpg' %}" alt="Documentales" onerror="this.onerror=null; this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2280%22 height%3D%2280%22 viewBox%3D%220 0 80 80%22%3E%3Crect width%3D%2280%22 height%3D%2280%22 fill%3D%22%23ddd%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Arial%2C sans-serif%22 font-size%3D%2214%22 fill%3D%22%23333%22%3EDocumentales%3C%2Ftext%3E%3C%2Fsvg%3E';">
+                <h3>Documentales</h3>
+                <p>Sumérgete en historias fascinantes con nuestros documentales.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div id="overlayPreview" class="overlay-preview">
+    <div class="preview-container">
+        <span class="close-button">&times;</span>
+        <img id="previewImage" class="preview-image" src="" alt="Preview" style="display: none;">
+        <video id="previewVideo" class="preview-video" controls style="display: none;">
+            <source src="" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+        </video>
+        <div class="navigation-buttons">
+            <button id="prevButton" class="nav-button">Anterior</button>
+            <button id="nextButton" class="nav-button">Siguiente</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Define a global object to hold our media URLs
+    window.previewMedia = {
+        naturaleza: [
+            "{% static 'images/image_5.jpg' %}",
+            "{% static 'images/naturaleza_2.jpg' %}",
+            "{% static 'images/naturaleza_3.jpg' %}",
+        ],
+        retratos: [
+            "{% static 'images/retrato_1.jpg' %}",
+            "{% static 'images/retrato_2.jpg' %}",
+            "{% static 'images/retrato_3.jpg' %}",
+        ],
+        eventos: [
+            "{% static 'images/evento_1.jpg' %}",
+            "{% static 'images/evento_2.jpg' %}",
+            "{% static 'images/evento_3.jpg' %}",
+        ],
+        bodas: [
+            "{% static 'videos/boda_1.mp4' %}",
+            "{% static 'videos/boda_2.mp4' %}",
+        ],
+        viajes: [
+            "{% static 'videos/viaje_1.mp4' %}",
+            "{% static 'videos/viaje_2.mp4' %}",
+        ],
+        documentales: [
+            "{% static 'videos/documental_1.mp4' %}",
+            "{% static 'videos/documental_2.mp4' %}",
+        ]
+    };
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/media.js' %}"></script>
+{% endblock %}

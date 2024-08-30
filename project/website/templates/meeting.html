@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/meeting.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="meeting-container">
+    <h1 class="meeting-title">Agendar una Cita</h1>
+    <form id="meeting-form" class="meeting-form">
+        <div class="form-group">
+            <label for="name">Nombre completo:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Teléfono:</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="meeting-type">Tipo de reunión:</label>
+            <select id="meeting-type" name="meeting-type" required>
+                <option value="">Seleccione una opción</option>
+                <option value="video">Videollamada</option>
+                <option value="onsite">Reunión presencial</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date">Fecha preferida:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <label for="time">Hora preferida:</label>
+            <input type="time" id="time" name="time" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Mensaje adicional:</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="payment-method">Método de Pago:</label>
+            <select id="payment-method" name="payment-method" required>
+                <option value="">Seleccione un método de pago</option>
+                <option value="online">Pago en línea</option>
+                <option value="deposit">Depósito bancario</option>
+            </select>
+        </div>
+        <div id="online-payment" class="payment-info hidden">
+            <p>Haga clic en el siguiente enlace para realizar el pago en línea:</p>
+            <a href="#" class="payment-link">Realizar Pago en Línea</a>
+        </div>
+        <div id="deposit-info" class="payment-info hidden">
+            <p>Información para depósito bancario:</p>
+            <ul>
+                <li>Banco: Banco Nacional de México</li>
+                <li>Cuenta: 1234567890</li>
+                <li>CLABE: 002123456789012345</li>
+                <li>Beneficiario: Nombre de la Empresa</li>
+            </ul>
+            <p>Por favor, guarde su comprobante de depósito y envíelo a: pagos@empresa.com</p>
+        </div>
+        <button type="submit" class="submit-btn">Agendar Cita</button>
+    </form>
+    <div id="confirmation" class="confirmation hidden">
+        <h2>¡Gracias por agendar una cita!</h2>
+        <p>Nos pondremos en contacto contigo pronto para confirmar los detalles.</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/meeting.js' %}"></script>
+{% endblock %}

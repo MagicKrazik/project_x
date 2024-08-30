@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/prices.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="prices-container">
+    <h1 class="prices-title">Nuestros Servicios y Precios</h1>
+    
+    <section class="service-section" id="fotos">
+        <h2 class="section-title">Servicios de Fotografía</h2>
+        <div class="services-grid">
+            <div class="service-card" data-service="sesion-fotos">
+                <img src="{% static 'images/sesion-fotos.jpg' %}" alt="Sesión de Fotos" class="service-image">
+                <h3>Sesión de Fotos</h3>
+                <p class="price">Desde $1,500 MXN</p>
+                <ul class="service-details">
+                    <li>2 horas de sesión</li>
+                    <li>50 fotos editadas</li>
+                    <li>Entrega digital</li>
+                </ul>
+                <button class="book-now-btn">Reservar Ahora</button>
+            </div>
+
+            <div class="service-card" data-service="boda">
+                <img src="{% static 'images/boda.jpg' %}" alt="Fotografía de Boda" class="service-image">
+                <h3>Fotografía de Boda</h3>
+                <p class="price">Desde $15,000 MXN</p>
+                <ul class="service-details">
+                    <li>Cobertura completa del evento</li>
+                    <li>500+ fotos editadas</li>
+                    <li>Álbum de fotos impreso</li>
+                </ul>
+                <button class="book-now-btn">Reservar Ahora</button>
+            </div>
+
+            <div class="service-card" data-service="producto">
+                <img src="{% static 'images/producto.jpg' %}" alt="Fotografía de Producto" class="service-image">
+                <h3>Fotografía de Producto</h3>
+                <p class="price">Desde $500 MXN por producto</p>
+                <ul class="service-details">
+                    <li>Hasta 5 ángulos por producto</li>
+                    <li>Retoque profesional</li>
+                    <li>Imágenes de alta resolución</li>
+                </ul>
+                <button class="book-now-btn">Reservar Ahora</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-section" id="videos">
+        <h2 class="section-title">Servicios de Video</h2>
+        <div class="services-grid">
+            <div class="service-card" data-service="video-evento">
+                <img src="{% static 'images/video-evento.jpg' %}" alt="Video de Evento" class="service-image">
+                <h3>Video de Evento</h3>
+                <p class="price">Desde $10,000 MXN</p>
+                <ul class="service-details">
+                    <li>Hasta 8 horas de cobertura</li>
+                    <li>Video resumen de 5-7 minutos</li>
+                    <li>Edición profesional</li>
+                </ul>
+                <button class="book-now-btn">Reservar Ahora</button>
+            </div>
+
+            <div class="service-card" data-service="video-corporativo">
+                <img src="{% static 'images/video-corporativo.jpg' %}" alt="Video Corporativo" class="service-image">
+                <h3>Video Corporativo</h3>
+                <p class="price">Desde $8,000 MXN</p>
+                <ul class="service-details">
+                    <li>Guión personalizado</li>
+                    <li>Hasta 3 minutos de video final</li>
+                    <li>Grabación en locación</li>
+                </ul>
+                <button class="book-now-btn">Reservar Ahora</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-section" id="especiales">
+        <h2 class="section-title">Proyectos Especiales</h2>
+        <div class="services-grid">
+            <div class="service-card" data-service="edicion-video">
+                <img src="{% static 'images/edicion-video.jpg' %}" alt="Edición de Video" class="service-image">
+                <h3>Edición de Video</h3>
+                <p class="price">Desde $3,000 MXN</p>
+                <ul class="service-details">
+                    <li>Edición profesional</li>
+                    <li>Corrección de color</li>
+                    <li>Adición de música y efectos</li>
+                </ul>
+                <button class="book-now-btn">Reservar Ahora</button>
+            </div>
+
+            <div class="service-card" data-service="proyecto-digital">
+                <img src="{% static 'images/proyecto-digital.jpg' %}" alt="Proyecto Digital" class="service-image">
+                <h3>Proyecto Digital</h3>
+                <p class="price">Cotización personalizada</p>
+                <ul class="service-details">
+                    <li>Diseño de contenido multimedia</li>
+                    <li>Integración de foto y video</li>
+                    <li>Entrega en formato digital</li>
+                </ul>
+                <button class="book-now-btn">Solicitar Cotización</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+            <a href="{% url 'meeting' %}" class="schedule-btn">Agendar Cita</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/prices.js' %}"></script>
+{% endblock %}
