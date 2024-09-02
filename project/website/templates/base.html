@@ -23,14 +23,18 @@
                 <div class="navbar-right navbar-menu">
                     <a href="{% url 'home' %}">Inicio</a>
                     {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}">Mi Perfil</a>
-                    <a href="{% url 'media' %}">Galeria</a>
-                    <a href="{% url 'prices' %}">Precios</a>
-                    <a href="{% url 'meeting' %}">Agendar Cita</a>
-                    <a href="{% url 'logout' %}">Cerrar Sesión</a>
+                        <a href="{% url 'profile' %}">Mi Perfil</a>
+                        <a href="{% url 'media' %}">Galeria</a>
+                        <a href="{% url 'prices' %}">Precios</a>
+                        <a href="{% url 'meeting' %}">Agendar Cita</a>
+                        {% if user.is_staff or user.is_superuser %}
+                            <a href="{% url 'admin_dashboard' %}">Panel de Admin</a>
+                        {% endif %}
+                        <a href="{% url 'logout' %}">Cerrar Sesión</a>
                     {% else %}
-                    <a href="{% url 'register'%}">Registrarse</a>
-                    <a href="{% url 'login' %}">Iniciar Sesión</a>
+                        <a href="{% url 'register' %}">Registrarse</a>
+                        <a href="{% url 'login' %}">Iniciar Sesión</a>
+                        <a href="{% url 'admin_login' %}">Admin</a>
                     {% endif %}
                 </div>
 

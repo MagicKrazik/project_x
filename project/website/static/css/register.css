@@ -1,19 +1,37 @@
 /* register.css */
-
 .register-container {
-    max-width: 500px;
-    margin: 0 auto;
-    margin-top: 40px;
+    max-width: 100%;
     padding: 20px;
-    background-color: var(--white);
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 20px auto;
+}
+
+@media (min-width: 768px) {
+    .register-container {
+        max-width: 500px;
+    }
 }
 
 .register-title {
-    color: var(--primary-color);
+    color: #333;
     text-align: center;
     margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.membership-info {
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.membership-info h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 .register-form {
@@ -28,38 +46,25 @@
 label {
     display: block;
     margin-bottom: 5px;
-    color: var(--text-color);
+    color: #333;
     font-weight: bold;
 }
 
 input[type="text"],
 input[type="tel"],
 input[type="email"],
-input[type="number"],
+input[type="password"],
 select {
     width: 100%;
     padding: 10px;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
 }
 
-input[type="number"] {
-    appearance: textfield;
-    -moz-appearance: textfield;
-    -webkit-appearance: textfield;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    appearance: none;
-    margin: 0;
-}
-
 .submit-button {
-    background-color: var(--accent-color);
-    color: var(--white);
+    background-color: #007bff;
+    color: #ffffff;
     border: none;
     padding: 12px 20px;
     border-radius: 5px;
@@ -69,11 +74,11 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .submit-button:hover {
-    background-color: var(--primary-color);
+    background-color: #0056b3;
 }
 
 .error-message {
-    color: #ff0000;
+    color: #dc3545;
     font-size: 0.9em;
     margin-top: 5px;
 }
@@ -83,7 +88,7 @@ input[type="number"]::-webkit-inner-spin-button {
     border: 1px solid #e0e0e0;
     border-radius: 5px;
     padding: 15px;
-    margin-bottom: 15px;
+    margin-top: 20px;
 }
 
 .payment-info ul {
@@ -92,8 +97,8 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .payment-link {
     display: inline-block;
-    background-color: var(--accent-color);
-    color: var(--white);
+    background-color: #28a745;
+    color: #ffffff;
     text-decoration: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -102,23 +107,14 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .payment-link:hover {
-    background-color: var(--primary-color);
+    background-color: #218838;
 }
 
-@media (max-width: 768px) {
-    .register-container {
-        padding: 15px;
-    }
-    
-    input[type="text"],
-    input[type="tel"],
-    input[type="email"],
-    input[type="number"],
-    select {
-        font-size: 14px;
-    }
-    
-    .submit-button {
-        font-size: 16px;
-    }
+/* Remove any styling for unwanted elements */
+
+.form-text,
+.text-muted,
+.radiolist,
+.inline {
+    display: none;
 }

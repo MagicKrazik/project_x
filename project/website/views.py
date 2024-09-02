@@ -6,6 +6,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import os
+from django.utils import timezone
+from .models import Membership
+
+
+
 
 # Create your views here.
 def home(request):
@@ -15,13 +20,14 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            # Process the data in form.cleaned_data as required
-            # For example, create a new user
-            # Then redirect to a new URL:
-            return redirect('registration_success')
+            user = form.save()
+            login(request, user)
+            return redirect('dashboard')  # Redirect to user dashboard after successful registration
     else:
         form = RegistrationForm()
-    return render(request, 'register.html', {'form': form})
+    
+    membership = Membership.objects.first()  # Assuming there's only one membership type
+    return render(request, 'register.html', {'form': form, 'membership': membership})
 
 
 def login_view(request):
@@ -35,6 +41,25 @@ def login_view(request):
         else:
             messages.error(request, 'Nombre de usuario o contraseña inválidos')
     return render(request, 'login.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.last_payment_date = timezone.now().date()
+            user.next_payment_date = user.last_payment_date + timezone.timedelta(days=30)
+            user.save()
+            login(request, user)
+            return redirect('dashboard')  # Redirect to user dashboard after successful registration
+    else:
+        form = RegistrationForm()
+    
+    membership = Membership.objects.first()  # Assuming there's only one membership type
+    return render(request, 'register.html', {'form': form, 'membership': membership})
+
+
 
 @login_required
 def logout_view(request):

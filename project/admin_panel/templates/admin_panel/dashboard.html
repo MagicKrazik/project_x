@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="admin-dashboard-container">
+    <h2>Admin Dashboard</h2>
+    <nav class="admin-nav">
+        <ul>
+            <li><a href="{% url 'admin_users' %}">Manage Users</a></li>
+            <li><a href="{% url 'admin_content' %}">Manage Content</a></li>
+            <li><a href="{% url 'admin_settings' %}">Site Settings</a></li>
+        </ul>
+    </nav>
+    <div class="admin-content">
+        <!-- Content for each admin section will go here -->
+    </div>
+</div>
+{% endblock %}
