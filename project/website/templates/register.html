@@ -8,59 +8,45 @@
 {% block content %}
 <div class="register-container">
     <h1 class="register-title">Regístrate Aquí</h1>
+
     <div class="membership-info">
         <h2>Membresía Mensual</h2>
-        <p>Precio: {{ membership.price }} {{ membership.currency }} por mes</p>
+        <h3><strong>Precio: $250 MXN al mes</strong></h3>
+        <p>Comienza a disfrutar de mi contenido hoy mismo...</p>
     </div>
-    <form method="post" class="register-form">
+
+    <form method="post">
         {% csrf_token %}
-        <div class="form-group">
-            {{ form.nombre.label_tag }}
-            {{ form.nombre }}
-        </div>
-        <div class="form-group">
-            {{ form.username.label_tag }}
-            {{ form.username }}
-        </div>
-        <div class="form-group">
-            {{ form.email.label_tag }}
-            {{ form.email }}
-        </div>
-        <div class="form-group">
-            {{ form.telefono.label_tag }}
-            {{ form.telefono }}
-        </div>
-        <div class="form-group">
-            {{ form.password1.label_tag }}
-            {{ form.password1 }}
-        </div>
-        <div class="form-group">
-            {{ form.password2.label_tag }}
-            {{ form.password2 }}
-        </div>
-        <div class="form-group">
-            {{ form.metodo_pago.label_tag }}
-            {{ form.metodo_pago }}
-        </div>
-        {% if form.errors %}
+
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="error-message">
+                        {% for error in field.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        {% if form.non_field_errors %}
             <div class="error-message">
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
                 {% endfor %}
             </div>
         {% endif %}
+
         <div class="form-group">
-            <button type="submit" class="submit-button">Registrarse</button>
+            <button type="submit">Registrarse</button>
         </div>
     </form>
-    <div id="online-payment" class="payment-info" style="display: none;">
-        <p>Haga clic en el siguiente enlace para realizar el pago en línea:</p>
-        <a href="#" class="payment-link">Realizar Pago en Línea</a>
-    </div>
-    <div id="deposit-info" class="payment-info" style="display: none;">
-        <p>Información para depósito bancario:</p>
+
+    <div id="deposit-info" class="payment-info">
+        <h3>Información para depósito bancario:</h3>
         <ul>
             <li>Banco: Banco Nacional de México</li>
             <li>Cuenta: 1234567890</li>
@@ -68,6 +54,7 @@
             <li>Beneficiario: Nombre de la Empresa</li>
         </ul>
         <p>Por favor, guarde su comprobante de depósito y envíelo a: pagos@empresa.com</p>
+        <p>Su cuenta será activada una vez que se confirme el pago.</p>
     </div>
 </div>
 {% endblock %}

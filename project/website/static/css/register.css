@@ -34,7 +34,15 @@
     margin-bottom: 10px;
 }
 
-.register-form {
+.membership-info h3 {
+    color: #FF1493;
+}
+
+.membership-info p, h2 {
+    color: #FF1493;
+}
+
+form {
     display: flex;
     flex-direction: column;
 }
@@ -62,7 +70,7 @@ select {
     font-size: 16px;
 }
 
-.submit-button {
+button[type="submit"] {
     background-color: #007bff;
     color: #ffffff;
     border: none;
@@ -73,7 +81,7 @@ select {
     transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
+button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
@@ -91,30 +99,76 @@ select {
     margin-top: 20px;
 }
 
+.payment-info h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
 .payment-info ul {
     padding-left: 20px;
+    margin-bottom: 10px;
 }
 
-.payment-link {
-    display: inline-block;
-    background-color: #28a745;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
+.payment-info p {
+    margin-bottom: 5px;
 }
 
-.payment-link:hover {
-    background-color: #218838;
+/* Responsive design for small screens */
+@media (max-width: 480px) {
+    .register-container {
+        padding: 15px;
+    }
+
+    .register-title {
+        font-size: 20px;
+    }
+
+    .membership-info h2 {
+        font-size: 16px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="password"],
+    select {
+        font-size: 14px;
+    }
+
+    button[type="submit"] {
+        font-size: 16px;
+    }
 }
 
-/* Remove any styling for unwanted elements */
-
+/* Hide unwanted elements */
 .form-text,
 .text-muted,
 .radiolist,
 .inline {
-    display: none;
+    display: none !important;
+}
+
+/* Specifically target and hide the password authentication text */
+#id_password1_helptext,
+#id_password2_helptext {
+    display: none !important;
+}
+
+/* Add these rules to your existing register.css file */
+
+/* Hide all help text for password fields */
+#div_id_password1 .help-block,
+#div_id_password2 .help-block {
+    display: none !important;
+}
+
+/* Specifically target the authentication text */
+#div_id_password1 .help-block:contains("Password-based authentication:"),
+#div_id_password2 .help-block:contains("Password-based authentication:") {
+    display: none !important;
+}
+
+/* Hide any element containing this specific text */
+*:contains("Password-based authentication:") {
+    display: none !important;
 }

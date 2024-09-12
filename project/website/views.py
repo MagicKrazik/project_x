@@ -1,33 +1,47 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from .forms import RegistrationForm
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 import os
 from django.utils import timezone
-from .models import Membership
-
-
+from .models import CustomUser, Membership
 
 
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
 
+
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('dashboard')  # Redirect to user dashboard after successful registration
+            user = form.save(commit=False)
+            user.is_active = False  # User starts inactive until payment is confirmed
+            user.save()
+            messages.success(request, 'Registro exitoso. Por favor, realiza el depósito bancario para activar tu cuenta.')
+            return redirect('home')
     else:
         form = RegistrationForm()
     
-    membership = Membership.objects.first()  # Assuming there's only one membership type
+    membership = Membership.objects.first()
     return render(request, 'register.html', {'form': form, 'membership': membership})
+
+def admin_dashboard(request):
+    if not request.user.is_staff:
+        return redirect('home')
+    
+    users = CustomUser.objects.all()
+    context = {
+        'total_users': users.count(),
+        'active_users': users.filter(is_active=True).count(),
+        'pending_users': users.filter(payment_status='pending').count(),
+        'overdue_users': users.filter(payment_status='overdue').count(),
+    }
+    return render(request, 'admin/dashboard.html', context)
 
 
 def login_view(request):
@@ -42,23 +56,19 @@ def login_view(request):
             messages.error(request, 'Nombre de usuario o contraseña inválidos')
     return render(request, 'login.html')
 
-
-def register(request):
+@login_required
+def delete_user(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.last_payment_date = timezone.now().date()
-            user.next_payment_date = user.last_payment_date + timezone.timedelta(days=30)
-            user.save()
-            login(request, user)
-            return redirect('dashboard')  # Redirect to user dashboard after successful registration
+        user = request.user
+        try:
+            user.delete()
+            messages.success(request, 'Tu cuenta ha sido eliminada exitosamente.')
+            return redirect('home')
+        except Exception as e:
+            messages.error(request, f'Hubo un error al eliminar tu cuenta: {str(e)}')
+            return redirect('profile')
     else:
-        form = RegistrationForm()
-    
-    membership = Membership.objects.first()  # Assuming there's only one membership type
-    return render(request, 'register.html', {'form': form, 'membership': membership})
-
+        return render(request, 'confirm_delete.html')
 
 
 @login_required

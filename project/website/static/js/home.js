@@ -114,6 +114,16 @@ document.addEventListener('DOMContentLoaded', function() {
         return new Date(dateString).toLocaleDateString(undefined, options);
     }
 
+    // Remove messages after they fade out
+    document.addEventListener('DOMContentLoaded', function() {
+        var messages = document.querySelectorAll('.alert');
+        messages.forEach(function(message) {
+            setTimeout(function() {
+                message.remove();
+            }, 5000);  // 5000ms = 5s (4.5s delay + 0.5s fade out)
+        });
+    });
+
     reviews.forEach(review => {
         const reviewCard = document.createElement('div');
         reviewCard.className = 'review-card';

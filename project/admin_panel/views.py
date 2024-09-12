@@ -1,24 +1,32 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render
 from django.contrib.auth.decorators import user_passes_test
-from .decorators import admin_required
+from website.models import CustomUser  # Make sure this import is correct
 
 def is_admin(user):
-    return user.is_authenticated and (user.is_staff or user.is_superuser)
+    return user.is_authenticated and user.is_staff
 
-def admin_login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None and (user.is_staff or user.is_superuser):
-            login(request, user)
-            return redirect('admin_dashboard')
-        else:
-            error_message = "Invalid credentials or insufficient permissions."
-            return render(request, 'admin_panel/login.html', {'error_message': error_message})
-    return render(request, 'admin_panel/login.html')
-
-@admin_required
+@user_passes_test(is_admin)
 def admin_dashboard(request):
-    return render(request, 'admin_panel/dashboard.html')
+    total_users = CustomUser.objects.count()
+    active_users = CustomUser.objects.filter(is_active=True).count()
+    estimated_profit = (total_users * 250)  # Calculating estimated profit
+    recent_activity = CustomUser.objects.order_by('-date_joined')[:5]
+    
+    context = {
+        'total_users': total_users,
+        'active_users': active_users,
+        'estimated_profit': estimated_profit,
+        'recent_activity': recent_activity,
+    }
+    
+    return render(request, 'admin_panel/dashboard.html', context)
+
+@user_passes_test(is_admin)
+def manage_users(request):
+    users = CustomUser.objects.all().order_by('-date_joined')
+    
+    context = {
+        'users': users,
+    }
+    
+    return render(request, 'admin_panel/manage_users.html', context)

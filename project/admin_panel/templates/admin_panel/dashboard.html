@@ -1,18 +1,46 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="admin-dashboard-container">
-    <h2>Admin Dashboard</h2>
-    <nav class="admin-nav">
-        <ul>
-            <li><a href="{% url 'admin_users' %}">Manage Users</a></li>
-            <li><a href="{% url 'admin_content' %}">Manage Content</a></li>
-            <li><a href="{% url 'admin_settings' %}">Site Settings</a></li>
+    <h1>Panel de Administración</h1>
+    
+    <div class="dashboard-grid">
+        <div class="dashboard-card total-users">
+            <h2>Usuarios Totales</h2>
+            <p class="count">{{ total_users }}</p>
+        </div>
+        <div class="dashboard-card active-users">
+            <h2>Usuarios Activos</h2>
+            <p class="count">{{ active_users }}</p>
+        </div>
+        <div class="dashboard-card estimated-profit">
+            <h2>Ganancia Estimada</h2>
+            <p class="multiply">$<span id="profit">{{ estimated_profit }}</span></p>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <a href="#" class="btn btn-primary">Gestionar Usuarios</a>
+        <a href="#" class="btn btn-secondary">Gestionar Contenido</a>
+        <a href="#" class="btn btn-secondary">Configuración del Sitio</a>
+    </div>
+
+    <div class="recent-activity">
+        <h2>Actividad Reciente</h2>
+        <ul id="activity-list">
+            {% for user in recent_activity %}
+                <li>Nuevo usuario registrado: {{ user.username }} ({{ user.date_joined|date:"d/m/Y H:i" }})</li>
+            {% endfor %}
         </ul>
-    </nav>
-    <div class="admin-content">
-        <!-- Content for each admin section will go here -->
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}

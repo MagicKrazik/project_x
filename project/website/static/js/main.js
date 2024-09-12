@@ -14,6 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    setTimeout(function() {
+        var messages = document.getElementsByClassName('alert');
+        for (var i = 0; i < messages.length; i++) {
+            messages[i].style.display = 'none';
+        }
+    }, 5000);
+
     // Add smooth scrolling to all links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
