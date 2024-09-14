@@ -11,6 +11,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('meeting/', views.meeting, name='meeting'),
     path('prices/', views.prices, name='prices'),
-    path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('schedule-appointment/', views.schedule_appointment, name='schedule_appointment'),
+    path('appointment-confirmation/', views.appointment_confirmation, name='appointment_confirmation'),
 
 ]

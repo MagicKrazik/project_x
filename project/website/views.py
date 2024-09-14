@@ -8,6 +8,10 @@ from django.contrib import messages
 import os
 from django.utils import timezone
 from .models import CustomUser, Membership
+from .models import PhotographerAvailability, Appointment
+from .forms import AppointmentForm
+from datetime import datetime, timedelta
+
 
 
 # Create your views here.
@@ -98,7 +102,7 @@ def prices(request):
 ########### Unfinished ###########
 
 
-
+@login_required
 def media_view(request):
     # Path to the images directory
     images_dir = os.path.join(settings.STATIC_ROOT, 'images')
@@ -130,8 +134,55 @@ def media_view(request):
     return render(request, 'media.html', context)
 
 
-
+@login_required
 def get_folder_images(request, folder_name):
     folder_path = os.path.join(settings.STATIC_ROOT, 'images', folder_name)
     images = [f for f in os.listdir(folder_path) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif'))]
     return JsonResponse({'images': images})
+
+
+@login_required
+def schedule_appointment(request):
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST, user=request.user)
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.user = request.user
+            
+            # Check if the selected date and time are available
+            availability = PhotographerAvailability.objects.filter(
+                date=appointment.date,
+                start_time__lte=appointment.time,
+                end_time__gte=appointment.time,
+                is_available=True
+            ).first()
+            
+            if availability:
+                appointment.save()
+                availability.is_available = False
+                availability.save()
+                messages.success(request, 'Cita agendada exitosamente.')
+                return redirect('appointment_confirmation')
+            else:
+                messages.error(request, 'La fecha y hora seleccionadas no están disponibles.')
+    else:
+        form = AppointmentForm(user=request.user)
+    
+    # Get available dates for the next 30 days
+    today = datetime.now().date()
+    end_date = today + timedelta(days=30)
+    available_dates = PhotographerAvailability.objects.filter(
+        date__range=[today, end_date],
+        is_available=True
+    ).values_list('date', flat=True).distinct()
+    
+    context = {
+        'form': form,
+        'available_dates': available_dates,
+    }
+    return render(request, 'meeting.html', context)
+
+@login_required
+def appointment_confirmation(request):
+    appointment = Appointment.objects.filter(user=request.user).latest('id')
+    return render(request, 'appointment_confirmation.html', {'appointment': appointment})

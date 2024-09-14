@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
 from .models import CustomUser
+from .models import Appointment
 
 class RegistrationForm(UserCreationForm):
     usable_password = None
@@ -44,3 +45,23 @@ class RegistrationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+    
+
+class AppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ['date', 'time', 'meeting_type', 'location', 'additional_message', 'payment_method']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['user'] = forms.ModelChoiceField(
+                queryset=CustomUser.objects.filter(pk=user.pk),
+                initial=user,
+                widget=forms.HiddenInput()
+            )    

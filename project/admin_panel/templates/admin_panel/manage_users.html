@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/manage_users.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="manage-users-container">
+    <h1>Gestionar Usuarios</h1>
+    
+    <div class="user-filter">
+        <form method="get" action="{% url 'admin_panel:manage_users' %}">
+            <input type="text" id="userSearch" name="search" placeholder="Buscar usuarios..." value="{{ search_query }}">
+            <select id="statusFilter" name="status">
+                <option value="all" {% if status_filter == 'all' %}selected{% endif %}>Todos</option>
+                <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Activos</option>
+                <option value="inactive" {% if status_filter == 'inactive' %}selected{% endif %}>Inactivos</option>
+            </select>
+            <button type="submit" class="btn">Filtrar</button>
+        </form>
+    </div>
+
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Fecha de Registro</th>
+                <th>Estado</th>
+                <th>Fecha de Activación</th>
+                <th>Fecha de Renovación</th>
+                <th>Días Restantes</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+            {% for user in page_obj %}
+            <tr data-user-id="{{ user.id }}">
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone_number|default:"N/A" }}</td>
+                <td>{{ user.date_joined|date:"d/m/Y H:i" }}</td>
+                <td class="user-status">
+                    {% if user.is_active %}
+                        <span class="status-active">Activo</span>
+                    {% else %}
+                        <span class="status-inactive">Inactivo</span>
+                    {% endif %}
+                </td>
+                <td class="activation-date">
+                    {% if user.activation_date %}
+                        {{ user.activation_date|date:"d/m/Y" }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td class="renewal-date">
+                    {% if user.renewal_date %}
+                        {{ user.renewal_date|date:"d/m/Y" }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td class="days-left">
+                    {% if user.is_active and user.days_left is not None %}
+                        {% if user.days_left > 0 %}
+                            {{ user.days_left }} días
+                        {% else %}
+                            Expirado
+                        {% endif %}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if not user.is_active %}
+                    <button class="btn btn-activate" data-user-id="{{ user.id }}">Activar</button>
+                    {% else %}
+                    <button class="btn btn-deactivate" data-user-id="{{ user.id }}">Desactivar</button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9">No se encontraron usuarios.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&status={{ status_filter }}" class="btn">&laquo; Anterior</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span class="btn btn-current">{{ num }}</span>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}&search={{ search_query }}&status={{ status_filter }}" class="btn">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&status={{ status_filter }}" class="btn">Siguiente &raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div id="activationModal" class="modal">
+        <div class="modal-content">
+            <h2>Confirmar Activación</h2>
+            <p>¿Ha recibido el pago del usuario <span id="activationUsername"></span>?</p>
+            <div class="modal-actions">
+                <button id="confirmActivation" class="btn btn-primary">Confirmar</button>
+                <button id="cancelActivation" class="btn btn-secondary">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/manage_users.js' %}"></script>
+{% endblock %}

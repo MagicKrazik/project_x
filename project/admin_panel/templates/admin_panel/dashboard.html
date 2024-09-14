@@ -8,33 +8,39 @@
 {% block content %}
 <div class="admin-dashboard-container">
     <h1>Panel de Administración</h1>
-    
+
     <div class="dashboard-grid">
         <div class="dashboard-card total-users">
-            <h2>Usuarios Totales</h2>
+            <h2>Usuarios Registrados</h2>
             <p class="count">{{ total_users }}</p>
         </div>
+
         <div class="dashboard-card active-users">
             <h2>Usuarios Activos</h2>
             <p class="count">{{ active_users }}</p>
         </div>
+
         <div class="dashboard-card estimated-profit">
-            <h2>Ganancia Estimada</h2>
+            <h2>Ingreso Usuarios Activos</h2>
             <p class="multiply">$<span id="profit">{{ estimated_profit }}</span></p>
         </div>
     </div>
 
     <div class="action-buttons">
-        <a href="#" class="btn btn-primary">Gestionar Usuarios</a>
-        <a href="#" class="btn btn-secondary">Gestionar Contenido</a>
+        <a href="{% url 'admin_panel:manage_users' %}" class="btn btn-primary">Gestionar Usuarios</a>
+        <a href="{% url 'admin_panel:manage_availability' %}" class="btn btn-secondary">Gestionar Agenda disponible</a>
         <a href="#" class="btn btn-secondary">Configuración del Sitio</a>
     </div>
 
     <div class="recent-activity">
         <h2>Actividad Reciente</h2>
-        <ul id="activity-list">
+        <ul>
             {% for user in recent_activity %}
-                <li>Nuevo usuario registrado: {{ user.username }} ({{ user.date_joined|date:"d/m/Y H:i" }})</li>
+            <li>
+                Nuevo usuario registrado: {{ user.username }} 
+                ({{ user.date_joined|date:"d/m/Y H:i" }}) 
+                - Estado: {% if user.is_active %}Activo{% else %}Esperando activación{% endif %}
+            </li>
             {% endfor %}
         </ul>
     </div>
